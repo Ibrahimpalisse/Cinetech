@@ -5,6 +5,8 @@ require __DIR__ . '/config/chemin.php';
 
 use App\Controllers\HomeController;
 use App\Controllers\DetailController;
+use App\Controllers\MovieController;
+use App\Controllers\TvController;
 
 try {
     // Récupérer l'URL sans le chemin de base
@@ -18,6 +20,12 @@ try {
     } elseif ($path === 'details') {
         $controller = new DetailController();
         $controller->detail();
+    }elseif ($path === 'movies'){
+       $controller = new MovieController();
+       $controller->movies();
+    }elseif ($path === 'tv'){
+        $controller = new TvController();
+        $controller->tv(); 
     } else {
         http_response_code(404);
         echo "Page not found: " . htmlspecialchars($path);
