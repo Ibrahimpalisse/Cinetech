@@ -6,17 +6,18 @@
     <!-- Contenu principal -->
     <div class="movie-details">
         <img class="img_movie" src="https://image.tmdb.org/t/p/w500<?= htmlspecialchars($details['poster_path']) ?>" alt="<?= htmlspecialchars($details['title'] ?? 'Image non disponible') ?>">
-        <h1><?= htmlspecialchars($details['title'] ?? 'Titre non disponible') ?></h1>
+        <h1> <?= htmlspecialchars($details['title'] ?? 'Titre non disponible') ?></h1>
         <p><strong>Résumé :</strong> <?= htmlspecialchars($details['overview'] ?? 'Résumé non disponible') ?></p>
         <div class="movie-stats">
             <span><strong>Note :</strong> <?= htmlspecialchars($details['vote_average'] ?? 'Non noté') ?>/10</span>
             <span><strong>Durée :</strong> <?= htmlspecialchars($details['runtime'] ?? 'Non disponible') ?> minutes</span>
+            <span><strong>Date de sortie :</strong> <?= htmlspecialchars($details['release_date'] ?? 'Date inconnue') ?></span>
             <button class="btn btn-warning">ajouter aux favoris</button>
         </div>
     </div>
 </section>
     <!-- Genres -->
-    <h2 class="actors-title">Genres</h2>
+    <h1 class="actors-title">Genres</h1>
     <ul class="genres-list">
         <?php if (!empty($details['genres'])): ?>
             <?php foreach ($details['genres'] as $genre): ?>
@@ -42,7 +43,7 @@
     </ul>
 
     <!-- Production -->
-    <h2 class="actors-title">Production</h2>
+    <h3 class="actors-title">Production</h3>
     <ul class="genres-list">
         <?php if (!empty($details['production_companies'])): ?>
             <?php foreach ($details['production_companies'] as $company): ?>
@@ -57,7 +58,7 @@
     </ul>
 
     <!-- Acteurs -->
-    <h2 class="actors-title">Acteurs Principaux</h2>
+    <h4 class="actors-title">Acteurs Principaux</h4>
     <?php if (!empty($actors)): ?>
         <div class="actors-container">
             <?php foreach ($actors as $actor): ?>
@@ -83,23 +84,59 @@
     <?php endif; ?>
 
     <!-- Vidéos -->
-    <h2>Vidéos</h2>
-    <?php if (!empty($videos)): ?>
-        <div class="videos-container">
-            <?php foreach ($videos as $video): ?>
-                <div class="video">
-                    <iframe 
-                        width="560" 
-                        height="315" 
-                        src="https://www.youtube.com/embed/<?= htmlspecialchars($video['key']) ?>" 
-                        frameborder="0" 
-                        allowfullscreen>
-                    </iframe>
-                    <p><?= htmlspecialchars($video['name'] ?? 'Vidéo') ?></p>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    <?php else: ?>
-        <p>Aucune vidéo disponible pour ce film.</p>
-    <?php endif; ?>
-</main>
+    <h5 class="actors-title">Vidéos</h5>
+<?php if (!empty($videos)): ?>
+    <div class="videos-container">
+        <?php foreach ($videos as $video): ?>
+            <div class="video">
+                <iframe 
+                    width="100%" 
+                    height="315" 
+                    src="https://www.youtube.com/embed/<?= htmlspecialchars($video['key']) ?>" 
+                    frameborder="0" 
+                    allowfullscreen>
+                </iframe>
+                <p><?= htmlspecialchars($video['name'] ?? 'Vidéo') ?></p>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <p>Aucune vidéo disponible pour ce film.</p>
+<?php endif; ?>
+
+<style>
+    .videos-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+    .video {
+        flex: 1 1 calc(33.333% - 20px); /* 3 colonnes */
+        max-width: calc(33.333% - 20px);
+        box-sizing: border-box;
+    }
+    .video iframe {
+        width: 100%;
+        height: auto;
+    }
+    .video p {
+        text-align: center;
+        font-size: 1rem;
+        margin-top: 10px;
+    }
+    @media (max-width: 768px) {
+        .video {
+            flex: 1 1 calc(50% - 20px); /* 2 colonnes */
+            max-width: calc(50% - 20px);
+        }
+    }
+    @media (max-width: 480px) {
+        .video {
+            flex: 1 1 100%; /* 1 colonne */
+            max-width: 100%;
+        }
+    }
+</style>
+
+
+    

@@ -1,4 +1,3 @@
-// Select all carousels
 const carousels = document.querySelectorAll('.carousel');
 
 carousels.forEach((carousel) => {
@@ -6,16 +5,15 @@ carousels.forEach((carousel) => {
     const slides = Array.from(track.children);
     const nextButton = carousel.querySelector('.carousel-btn-right');
     const prevButton = carousel.querySelector('.carousel-btn-left');
-
     let currentIndex = 0;
 
-    // Update the carousel position
+    // Mise à jour du carrousel
     const updateCarousel = () => {
         const slideWidth = slides[0].getBoundingClientRect().width;
         track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
     };
 
-    // Move to next slide
+    // Bouton suivant
     nextButton.addEventListener('click', () => {
         if (currentIndex < slides.length - 1) {
             currentIndex++;
@@ -23,7 +21,7 @@ carousels.forEach((carousel) => {
         }
     });
 
-    // Move to previous slide
+    // Bouton précédent
     prevButton.addEventListener('click', () => {
         if (currentIndex > 0) {
             currentIndex--;
@@ -31,6 +29,10 @@ carousels.forEach((carousel) => {
         }
     });
 
-    // Make it responsive
-    window.addEventListener('resize', updateCarousel);
+    // Ajustement dynamique à la taille de l'écran
+    window.addEventListener('resize', () => {
+        updateCarousel();
+    });
+
+    updateCarousel();
 });

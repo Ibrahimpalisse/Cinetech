@@ -78,7 +78,7 @@ function getGenreNames($genreIds, $allGenres) {
 <div class="btn-toolbar mb-3 p-3" role="toolbar" aria-label="Toolbar with button groups">
 
     <div class="btn-group me-3" role="group" aria-label="Pagination">
-        <?php for ($i = 1; $i <= min($pagination['total_pages'], 5); $i++): ?>
+        <?php for ($i = 1; $i <= min($pagination['total_pages'], 6); $i++): ?>
             <a href="?genre=<?= $selected_genre ?>&page=<?= $i ?>" 
                class="btn btn-outline-secondary <?= $i == $pagination['current_page'] ? 'active' : '' ?> me-2">
                <?= $i ?>

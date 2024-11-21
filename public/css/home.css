@@ -2,26 +2,19 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: black;
+  background-color: #121212;
+  font-family: 'Arial', sans-serif;
+  color: #fff;
+  overflow-x: hidden;
 }
 
 /* ======== TITLES ======== */
 .title_movie {
   text-align: center;
-  margin-top: 5vh;
+  margin: 3vh 0;
   color: #ff8c00;
-}
-
-.title_name {
-  color: aliceblue;
-  font-size: 2vh;
-  margin: 5px 0;
-}
-
-.note {
-  color: burlywood;
-  font-size: 2vh;
-  margin: 0;
+  font-size: 2.5rem;
+  letter-spacing: 1px;
 }
 
 /* ======== GENERAL LAYOUT ======== */
@@ -29,64 +22,93 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  padding: 5vh;
-  justify-content: center; /* Center elements */
+  padding: 3vh 5vw;
+  justify-content: center;
 }
 
 /* ======== CARD STYLES ======== */
 .card_movie {
-  flex: 0 0 18%; /* Default size for large screens */
+  flex: 0 0 18%;
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card_movie:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(255, 140, 0, 0.5);
+}
+
+.img_movie {
+  width: 100%;
   border-radius: 10px;
-  color: white;
-  padding: 10px;
-  margin: 10px;
+  margin-bottom: 15px;
+  object-fit: cover;
 }
 
-.img_movie, .img_serie {
-  border-radius: 10px;
-  margin-bottom: 10px;
+.title_name {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #ffdd99;
 }
 
-/* ======== ICONS ======== */
-.list-icon {
-  fill: #d7b854; /* List icon color */
+.note {
+  font-size: 0.9rem;
+  margin: 5px 0;
+  color: #ddd;
+}
+
+.btn {
+  background-color: #ff8c00;
+  color: #121212;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.favoris-icon {
-  fill: #f10505; /* Favorite icon color */
-  cursor: pointer;
+.btn:hover {
+  background-color: #ff6500;
+  transform: scale(1.05);
 }
 
 /* ======== CAROUSEL ======== */
 .carousel {
   position: relative;
   overflow: hidden;
-  width: 100%;
-  max-width: 1200px;
-  margin: 20px auto;
+  max-width: 90%;
+ 
+  margin: 3vh auto;
 }
 
 .carousel-track {
   display: flex;
-  transition: transform 0.3s ease-in-out;
+  transition: transform 0.4s ease-in-out;
+  gap: 20px;
 }
 
-/* ======== CAROUSEL BUTTONS ======== */
 .carousel-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
   border: none;
   font-size: 2rem;
-  cursor: pointer;
   padding: 10px;
+  cursor: pointer;
   z-index: 10;
   border-radius: 50%;
+  transition: background-color 0.3s;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(255, 140, 0, 0.7);
 }
 
 .carousel-btn-left {
@@ -98,41 +120,38 @@ body {
 }
 
 /* ======== RESPONSIVE DESIGN ======== */
-
-/* Large screens */
 @media (max-width: 1200px) {
   .card_movie {
-    flex: 0 0 30%; /* Adjust size for medium screens */
+    flex: 0 0 30%;
   }
 }
 
-/* Tablets */
 @media (max-width: 768px) {
   .card_movie {
-    flex: 0 0 45%; /* Size for tablets */
+    flex: 0 0 45%;
   }
-
   .carousel-btn {
     font-size: 1.5rem;
-    padding: 5px;
   }
 }
 
-/* Small screens */
 @media (max-width: 500px) {
   .card_movie {
-    flex: 0 0 100%; /* One card per row on small screens */
+    flex: 0 0 50%;
   }
-
-  .img_movie, .img_serie {
-    width: 90%; /* Larger image on small screens */
+  .img_movie {
+    width: 90%;
   }
-
   .title_name {
-    font-size: 2vh; /* Adjust title for readability */
+    font-size: 1rem;
   }
-
   .note {
-    font-size: 2vh; /* Adjust note size */
+    font-size: 0.8rem;
   }
+  .cadr {
+    gap: 0px;
+}
+.carousel{
+  max-width: 85%;
+}
 }

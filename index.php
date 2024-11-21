@@ -7,6 +7,7 @@ use App\Controllers\HomeController;
 use App\Controllers\DetailController;
 use App\Controllers\MovieController;
 use App\Controllers\TvController;
+use App\Controllers\registerController;
 
 try {
     // Récupérer l'URL sans le chemin de base
@@ -26,6 +27,10 @@ try {
     }elseif ($path === 'tv'){
         $controller = new TvController();
         $controller->tv(); 
+    }elseif ($path === 'register'){ {
+        $controller = new registerController();
+        $controller->register();
+    }   
     } else {
         http_response_code(404);
         echo "Page not found: " . htmlspecialchars($path);

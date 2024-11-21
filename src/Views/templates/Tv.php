@@ -14,7 +14,7 @@ function getGenreNames($genreIds, $allGenres) {
 ?>
 <?php foreach ($genres as $genre) {
     if ($genre['id'] == $selected_genre) {
-        echo '<h2 class="title_movie text-center">Genres/' . htmlspecialchars($genre['name']) . '<span class="line">'.  '<br>'. 'Page/' . htmlspecialchars($pagination['current_page']) .''. '</span>';
+        echo '<h2 class="title_movie text-center">Genres/' . htmlspecialchars($genre['name']). '</h2>';
         break;
     }
 } ?>
@@ -76,7 +76,7 @@ function getGenreNames($genreIds, $allGenres) {
 <div class="btn-toolbar mb-3 p-3" role="toolbar" aria-label="Toolbar with button groups">
 
     <div class="btn-group me-3" role="group" aria-label="Pagination">
-        <?php for ($i = 1; $i <= min($pagination['total_pages'], 5); $i++): ?>
+        <?php for ($i = 1; $i <= min($pagination['total_pages'], 6); $i++): ?>
             <a href="?genre=<?= $selected_genre ?>&page=<?= $i ?>" 
                class="btn btn-outline-secondary <?= $i == $pagination['current_page'] ? 'active' : '' ?> me-2">
                <?= $i ?>
