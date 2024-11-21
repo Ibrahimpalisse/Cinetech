@@ -1,28 +1,26 @@
 <!-- Affichage du fond d'écran en arrière-plan -->
-<main 
+<section
     class="container" 
-    style="background-image: url('https://image.tmdb.org/t/p/w1280<?= htmlspecialchars($details['backdrop_path'] ?? '') ?>');">
+    style="background-image: url('https://image.tmdb.org/t/p/w1280<?= htmlspecialchars($details['backdrop_path'] ?? 'Non disponible') ?>');">
     
-
-        <img 
-            src="https://image.tmdb.org/t/p/w500<?= htmlspecialchars($details['poster_path'] ?? '') ?>" 
-            alt="<?= htmlspecialchars($details['title'] ?? 'Affiche non disponible') ?>" 
-            style="border-radius: 10px; max-width: 100%; height: auto;">
- 
-
-    <!-- Titre et autres informations -->
-    <h1><?= htmlspecialchars($details['title'] ?? 'Titre non disponible') ?></h1>
-    <p><strong>Date de sortie :</strong> <?= htmlspecialchars($details['release_date'] ?? 'Non disponible') ?></p>
-    <p><strong>Résumé :</strong> <?= htmlspecialchars($details['overview'] ?? 'Résumé non disponible') ?></p>
-    <p><strong>Note moyenne :</strong> <?= htmlspecialchars($details['vote_average'] ?? 'Non noté') ?>/10</p>
-    <p><strong>Durée :</strong> <?= htmlspecialchars($details['runtime'] ?? 'Non disponible') ?> minutes</p>
-
+    <!-- Contenu principal -->
+    <div class="movie-details">
+        <img class="img_movie" src="https://image.tmdb.org/t/p/w500<?= htmlspecialchars($details['poster_path']) ?>" alt="<?= htmlspecialchars($details['title'] ?? 'Image non disponible') ?>">
+        <h1><?= htmlspecialchars($details['title'] ?? 'Titre non disponible') ?></h1>
+        <p><strong>Résumé :</strong> <?= htmlspecialchars($details['overview'] ?? 'Résumé non disponible') ?></p>
+        <div class="movie-stats">
+            <span><strong>Note :</strong> <?= htmlspecialchars($details['vote_average'] ?? 'Non noté') ?>/10</span>
+            <span><strong>Durée :</strong> <?= htmlspecialchars($details['runtime'] ?? 'Non disponible') ?> minutes</span>
+            <button class="btn btn-warning">ajouter aux favoris</button>
+        </div>
+    </div>
+</section>
     <!-- Genres -->
-    <h2>Genres</h2>
-    <ul>
+    <h2 class="actors-title">Genres</h2>
+    <ul class="genres-list">
         <?php if (!empty($details['genres'])): ?>
             <?php foreach ($details['genres'] as $genre): ?>
-                <li><?= htmlspecialchars($genre['name']) ?></li>
+                <li class="genre-item"><?= htmlspecialchars($genre['name']) ?></li>
             <?php endforeach; ?>
         <?php else: ?>
             <li>Aucun genre disponible.</li>
@@ -30,12 +28,12 @@
     </ul>
 
     <!-- Réalisateurs -->
-    <h2>Réalisateur(s)</h2>
-    <ul>
+    <h2 class="actors-title">Réalisateur(s)</h2>
+    <ul class="genres-list">
         <?php if (!empty($crew)): ?>
             <?php foreach ($crew as $member): ?>
                 <?php if ($member['job'] === 'Director'): ?>
-                    <li><?= htmlspecialchars($member['name']) ?></li>
+                    <li class="genre-item"><?= htmlspecialchars($member['name']) ?></li>
                 <?php endif; ?>
             <?php endforeach; ?>
         <?php else: ?>
@@ -44,11 +42,11 @@
     </ul>
 
     <!-- Production -->
-    <h2>Production</h2>
-    <ul>
+    <h2 class="actors-title">Production</h2>
+    <ul class="genres-list">
         <?php if (!empty($details['production_companies'])): ?>
             <?php foreach ($details['production_companies'] as $company): ?>
-                <li>
+                <li class="genre-item">
                     <strong><?= htmlspecialchars($company['name']) ?></strong>
                     (<?= htmlspecialchars($company['origin_country'] ?? 'Pays inconnu') ?>)
                 </li>
@@ -59,7 +57,7 @@
     </ul>
 
     <!-- Acteurs -->
-    <h2>Acteurs Principaux</h2>
+    <h2 class="actors-title">Acteurs Principaux</h2>
     <?php if (!empty($actors)): ?>
         <div class="actors-container">
             <?php foreach ($actors as $actor): ?>

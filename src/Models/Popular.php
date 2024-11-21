@@ -30,5 +30,21 @@ class Popular
         curl_close($curl);
         return json_decode($response, true);
     }
+    function getMovieGenres() {
+        $url = $this->bas_url . "/genre/movie/list?api_key=" . $this->api_key . "&language=fr-FR";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response, true);
+    }
+    function getTVGenres() {
+        $url = $this->bas_url . "/genre/tv/list?api_key=" . $this->api_key . "&language=fr-FR";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($curl);
+        curl_close($curl);
+        return json_decode($response, true);
+    }
 }
 ?>

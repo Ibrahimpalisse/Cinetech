@@ -1,9 +1,11 @@
+/* ======== RESET ======== */
 body {
   margin: 0;
   padding: 0;
   background-color: black;
 }
 
+/* ======== TITLES ======== */
 .title_movie {
   text-align: center;
   margin-top: 5vh;
@@ -22,60 +24,115 @@ body {
   margin: 0;
 }
 
+/* ======== GENERAL LAYOUT ======== */
 .cadr {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   padding: 5vh;
-  justify-content: center; /* Centrer les éléments */
+  justify-content: center; /* Center elements */
 }
 
+/* ======== CARD STYLES ======== */
 .card_movie {
-  flex: 0 0 18%; /* Taille initiale pour les grands écrans */
+  flex: 0 0 18%; /* Default size for large screens */
   text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  color: white;
+  padding: 10px;
+  margin: 10px;
 }
 
 .img_movie, .img_serie {
-  width: 75%;
   border-radius: 10px;
+  margin-bottom: 10px;
 }
+
+/* ======== ICONS ======== */
 .list-icon {
-  fill: #d7b854; /* Couleur pour l'icône de la liste */
+  fill: #d7b854; /* List icon color */
   cursor: pointer;
 }
 
 .favoris-icon {
-  fill: #f10505; /* Couleur pour l'icône des favoris */
+  fill: #f10505; /* Favorite icon color */
   cursor: pointer;
 }
 
+/* ======== CAROUSEL ======== */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
 
+.carousel-track {
+  display: flex;
+  transition: transform 0.3s ease-in-out;
+}
+
+/* ======== CAROUSEL BUTTONS ======== */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 10;
+  border-radius: 50%;
+}
+
+.carousel-btn-left {
+  left: 10px;
+}
+
+.carousel-btn-right {
+  right: 10px;
+}
+
+/* ======== RESPONSIVE DESIGN ======== */
+
+/* Large screens */
 @media (max-width: 1200px) {
   .card_movie {
-    flex: 0 0 30%; /* Ajuste la taille sur les écrans moyens */
+    flex: 0 0 30%; /* Adjust size for medium screens */
   }
 }
 
+/* Tablets */
 @media (max-width: 768px) {
   .card_movie {
-    flex: 0 0 45%; /* Taille pour tablettes */
+    flex: 0 0 45%; /* Size for tablets */
+  }
+
+  .carousel-btn {
+    font-size: 1.5rem;
+    padding: 5px;
   }
 }
 
+/* Small screens */
 @media (max-width: 500px) {
   .card_movie {
-    flex: 0 0 100%; /* Une carte par ligne sur petits écrans */
+    flex: 0 0 100%; /* One card per row on small screens */
   }
 
   .img_movie, .img_serie {
-    width: 90%; /* Image plus grande sur petits écrans */
+    width: 90%; /* Larger image on small screens */
   }
 
   .title_name {
-    font-size: 2vh; /* Agrandir le titre pour lisibilité */
+    font-size: 2vh; /* Adjust title for readability */
   }
 
   .note {
-    font-size: 2vh; /* Ajuster la taille de la note */
+    font-size: 2vh; /* Adjust note size */
   }
 }

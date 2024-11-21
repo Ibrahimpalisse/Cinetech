@@ -1,0 +1,119 @@
+/* Main container background */
+/* Section principale contenant l'image de fond */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+    color: #ddd;
+}
+.container {
+    background-size: cover; /* S'assure que l'image couvre toute la zone */
+    background-repeat: no-repeat; /* Évite que l'image de fond se répète */
+  /*  background-position: center;  Centre l'image pour un rendu optimal */
+    width: 100vw; /* Largeur complète de la fenêtre */
+    display: flex; /* Pour aligner le contenu interne */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Movie details section */
+.movie-details {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.movie-details h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.movie-details p {
+    font-size: 1.2em;
+    line-height: 1.5;
+}
+
+.movie-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 1em;
+    margin-top: 10px;
+}
+
+/* Section headers */
+.actors-title {
+    color: #ffcc00;
+    border-bottom: 2px solid #ffcc00;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+/* List styling */
+.genres-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.genres-list, .genre-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Actors section */
+.actors-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.actor-card {
+    width: 150px;
+    text-align: center;
+    color: white;
+}
+
+.actor-image {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+/* Videos section */
+.videos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.video iframe {
+    border-radius: 10px;
+}
+
+.video p {
+    margin-top: 5px;
+    color: white;
+    text-align: center;
+}
+
+a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+.img_movie {
+    max-width: 300px; /* Largeur maximale de l'image */
+    height: auto; /* Garde les proportions de l'image */
+    border-radius: 10px; /* Optionnel : ajout d'un effet de coins arrondis */
+    margin-bottom: 20px; /* Ajoute un espace en bas de l'image */
+}

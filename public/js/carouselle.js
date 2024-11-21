@@ -1,48 +1,36 @@
-/**
- * Fonction pour déplacer le carrousel horizontalement
- * @param {string} carouselId - L'identifiant du carrousel à déplacer
- * @param {number} direction - La direction du mouvement (-1 pour gauche, 1 pour droite)
- */
-function moveCarousel(carouselId, direction) {
-    // Récupérer le conteneur du carrousel par son ID
-    const carousel = document.getElementById(carouselId);
-    if (!carousel) {
-        console.error(`Carousel with ID "${carouselId}" not found.`);
-        return;
-    }
+// Select all carousels
+const carousels = document.querySelectorAll('.carousel');
 
-    // Récupérer l'intérieur du carrousel
-    const carouselInner = carousel.querySelector('.carousel_inner');
-    if (!carouselInner) {
-        console.error(`Carousel inner not found for carousel ID "${carouselId}".`);
-        return;
-    }
+carousels.forEach((carousel) => {
+    const track = carousel.querySelector('.carousel-track');
+    const slides = Array.from(track.children);
+    const nextButton = carousel.querySelector('.carousel-btn-right');
+    const prevButton = carousel.querySelector('.carousel-btn-left');
 
-    // Calculer la largeur d'une carte (inclure la marge entre les cartes)
-    const card = carouselInner.querySelector('.card_movie');
-    if (!card) {
-        console.error(`No cards found in carousel with ID "${carouselId}".`);
-        return;
-    }
+    let currentIndex = 0;
 
-    const cardWidth = card.offsetWidth + 16; // Largeur de la carte + marge (ajustez en fonction de votre CSS)
+    // Update the carousel position
+    const updateCarousel = () => {
+        const slideWidth = slides[0].getBoundingClientRect().width;
+        track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+    };
 
-    // Position actuelle de défilement
-    const currentScroll = carouselInner.scrollLeft;
-
-    // Calculer la nouvelle position de défilement
-    const newScrollPosition = currentScroll + direction * cardWidth;
-
-    // Appliquer le défilement
-    carouselInner.scrollTo({
-        left: newScrollPosition,
-        behavior: 'smooth',
+    // Move to next slide
+    nextButton.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
     });
 
-    // Logs pour débogage (optionnels)
-    console.log(`Carousel ID: ${carouselId}`);
-    console.log(`Direction: ${direction}`);
-    console.log(`Card width: ${cardWidth}`);
-    console.log(`Current scroll position: ${currentScroll}`);
-    console.log(`New scroll position: ${newScrollPosition}`);
-}
+    // Move to previous slide
+    prevButton.addEventListener('click', () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    // Make it responsive
+    window.addEventListener('resize', updateCarousel);
+});
