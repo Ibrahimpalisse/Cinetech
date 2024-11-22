@@ -1,4 +1,5 @@
   <!-- Films Populaires -->
+   
   <?php if (isset($movies) && is_array($movies)): ?>
         <h1 class="title_movie">Films Populaires</h1>
         <div class="carousel">

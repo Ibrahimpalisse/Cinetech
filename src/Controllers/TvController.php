@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+session_start();
 
 use App\Views\View;
 use App\Models\Tv;

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,24 +40,32 @@
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill: rgba(255, 99, 71, 1);" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
-                    </svg>
-
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
-                        <li>
-                            <a class="dropdown-item" href="#">Se connecter</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?= URL ?>register">S'inscrire</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">Profil</a>
-                        </li>
-                    </ul>
-                </li>    
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill: rgba(255, 99, 71, 1);" class="bi bi-person-fill" viewBox="0 0 16 16">
+                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
+                            <?php if (isset($_SESSION['user_id'])): ?>
+                                <!-- L'utilisateur est connecté -->
+                                <li>
+                                    <a class="dropdown-item" href="<?= URL ?>profile">Profil</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= URL ?>logout">Se déconnecter</a>
+                                </li>
+                            <?php else: ?>
+                                <!-- L'utilisateur n'est pas connecté -->
+                                <li>
+                                    <a class="dropdown-item" href="<?= URL ?>login">Se connecter</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="<?= URL ?>register">S'inscrire</a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
+                    </li>
+                  
             </ul>
             <form class="d-flex" role="search">
                 <input 
@@ -72,6 +81,10 @@
     </div>
 </nav>
     <main>
+    <h1 class="bienvenue">Bienvenue   <?= (isset($_SESSION['username'])) ? $_SESSION['username'] : 'Inconnu' ?> </h1>
+
+
+
          <?= $content ?>
      </main>
      <footer>

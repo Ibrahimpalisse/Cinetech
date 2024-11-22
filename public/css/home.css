@@ -8,6 +8,12 @@ body {
   overflow-x: hidden;
 }
 
+.bienvenue{
+  color: #9380d9;
+  font-size: 3vh;
+  margin: 4vh;
+}
+
 /* ======== TITLES ======== */
 .title_movie {
   text-align: center;
