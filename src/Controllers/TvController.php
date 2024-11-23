@@ -26,12 +26,16 @@ class TvController {
             // Récupère les séries du genre sélectionné
             $seriesData = $tvModel->getSeriesByGenre($genreId, $page);
 
-            $series = $seriesData['results'];
+            // Ajoute le type "tv" à chaque série
+            $series = array_map(function ($serie) {
+                $serie['type'] = 'tv'; // Ajoute le type "tv"
+                return $serie;
+            }, $seriesData['results']);
+
             $pagination = [
                 'total_pages' => $seriesData['total_pages'],
                 'current_page' => $seriesData['current_page']
             ];
-            
 
             // Affiche la vue avec les données
             $view = new View();

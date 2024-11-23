@@ -9,6 +9,7 @@ use App\Controllers\TvController;
 use App\Controllers\RegisterController;
 use App\Controllers\LoginControleur;
 use App\Controllers\LogoutControleur;
+use App\Controllers\FavorisControleur;  
 
 try {
     // Récupérer l'URL sans le chemin de base
@@ -51,6 +52,12 @@ try {
         case 'logout':
             $controller = new LogoutControleur();
             $controller->logout();
+            break;
+            
+    //   case 'favoris':
+    //       $controller = new FavorisControleur();
+     //     $controller->favoris();
+     //      break;
 
         default:
             http_response_code(404);

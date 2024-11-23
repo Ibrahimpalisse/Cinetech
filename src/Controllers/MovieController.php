@@ -26,10 +26,23 @@ class MovieController
             // Récupère les films du genre sélectionné
             $moviesData = $moviesModel->getMoviesByGenre($genreId, $page);
 
-            $movies = $moviesData['results'];
+            // Vérifie que les résultats existent
+            $movies = isset($moviesData['results']) ? $moviesData['results'] : [];
+
+            // Ajoute le type "tv" à chaque série
+            $movies = array_map(function ($movie) {
+                if (isset($movie['type']) && $movie['type'] === 'tv') {
+                    $movie['type'] = 'tv'; // Ajoute ou modifie le type
+                } else {
+                    $movie['type'] = 'movie'; // Définit un type par défaut
+                }
+                return $movie;
+            }, $movies);
+
+            // Prépare les données de pagination
             $pagination = [
-                'total_pages' => $moviesData['total_pages'],
-                'current_page' => $moviesData['current_page']
+                'total_pages' => $moviesData['total_pages'] ?? 1,
+                'current_page' => $page
             ];
 
             // Affiche la vue avec les données
@@ -41,6 +54,7 @@ class MovieController
                 'selected_genre' => $genreId
             ]);
         } catch (\Exception $e) {
+            // En cas d'erreur, affiche une page d'erreur
             $view = new View();
             $view->render('error', ['message' => $e->getMessage()]);
         }

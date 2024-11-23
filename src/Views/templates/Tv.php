@@ -63,7 +63,11 @@ function getGenreNames($genreIds, $allGenres) {
                             echo htmlspecialchars(implode(', ', $genreNames)); // Affiche les genres séparés par des virgules
                         ?>
                     </p>
-                    <button class="btn btn-warning">ajouter aux favoris</button>
+                    <form action="<?= URL ?>favoris" method="get">
+                        <input type="hidden" name="id" value="<?= (int)$serie['id'] ?>">
+                        <input type="hidden" name="type" value="<?= htmlspecialchars($serie['type']) ?>">
+                        <button type="submit" class="btn btn-warning">Ajouter au favoris</button>
+                    </form>          
                 </div>
             <?php endforeach; ?>
         </div>

@@ -32,10 +32,8 @@
                     <a class="nav-link text-white" href="<?= URL ?>movies">Films</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white me-auto" href="#">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill: rgba(255, 99, 71, 1);" class="bi bi-bookmark-fill list-icon" viewBox="0 0 16 16">
-                              <path d="M2 2v13.5a.5.5 0 0 0 .74.439L8 13.069l5.26 2.87A.5.5 0 0 0 14 15.5V2a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2"/>
-                     </svg>
+                    <a class="nav-link text-white me-auto" href="<?= URL ?>favoris">
+                  Favoris
 
                     </a>
                 </li>
@@ -65,6 +63,9 @@
                             <?php endif; ?>
                         </ul>
                     </li>
+                    <li class="nav-item">
+                        <h1 class="bienvenue">Bienvenue   <?= (isset($_SESSION['username'])) ? $_SESSION['username'] : 'Inconnu' ?> </h1>
+                    </li>
                   
             </ul>
             <form class="d-flex" role="search">
@@ -81,15 +82,14 @@
     </div>
 </nav>
     <main>
-    <h1 class="bienvenue">Bienvenue   <?= (isset($_SESSION['username'])) ? $_SESSION['username'] : 'Inconnu' ?> </h1>
-
-
-
          <?= $content ?>
      </main>
      <footer>
         <p>&copy; 2024 Mon Application</p>
     </footer>
-    <script src="./public/js/carouselle.js"></script>
+       <script src="./public/js/carouselle.js"></script>
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="./public/js/favorit.js"></script>
+  
 </body>
 </html>

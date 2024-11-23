@@ -2,17 +2,25 @@
 <section
     class="container" 
     style="background-image: url('https://image.tmdb.org/t/p/w1280<?= htmlspecialchars($details['backdrop_path'] ?? 'Non disponible') ?>');">
-    
+   
     <!-- Contenu principal -->
     <div class="movie-details">
         <img class="img_movie" src="https://image.tmdb.org/t/p/w500<?= htmlspecialchars($details['poster_path']) ?>" alt="<?= htmlspecialchars($details['title'] ?? 'Image non disponible') ?>">
         <h1> <?= htmlspecialchars($details['title'] ?? 'Titre non disponible') ?></h1>
         <p><strong>Résumé :</strong> <?= htmlspecialchars($details['overview'] ?? 'Résumé non disponible') ?></p>
-        <div class="movie-stats">
+        <div class="movie-stats"><?php
+        ?>
             <span><strong>Note :</strong> <?= htmlspecialchars($details['vote_average'] ?? 'Non noté') ?>/10</span>
             <span><strong>Durée :</strong> <?= htmlspecialchars($details['runtime'] ?? 'Non disponible') ?> minutes</span>
             <span><strong>Date de sortie :</strong> <?= htmlspecialchars($details['release_date'] ?? 'Date inconnue') ?></span>
-            <button class="btn btn-warning">ajouter aux favoris</button>
+            <span><strong>Langue originale :</strong> <?= htmlspecialchars($details['original_language'] ?? 'Non disponible') ?></span>            
+            <a class="<?= $type === 'movie' ?   : '' ?>"><a class="note" href="<?= URL ?>favoris?id=<?= (int)$details['id'] ?>&type=<?= $type ?>">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" style="fill: rgba(255, 99, 71, 1);" class="bi bi-plus-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                </svg>
+
+            </a>
         </div>
     </div>
 </section>
@@ -124,6 +132,16 @@
         font-size: 1rem;
         margin-top: 10px;
     }
+    .type-label {
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #ff9800;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
     @media (max-width: 768px) {
         .video {
             flex: 1 1 calc(50% - 20px); /* 2 colonnes */
