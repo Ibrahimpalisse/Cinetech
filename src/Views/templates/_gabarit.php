@@ -76,16 +76,6 @@
                     </li>
 
                 </ul>
-                <form class="d-flex" role="search">
-                    <input
-                        type="text"
-                        id="searchInput"
-                        class="form-control me-2"
-                        placeholder="Rechercher un film ou une série..."
-                        aria-label="Search"
-                        autocomplete="off">
-                    <div id="autocompleteResult" class="autocomplete-results"></div>
-                </form>
             </div>
         </div>
     </nav>
@@ -106,7 +96,14 @@
                 </div>
             </div>
         </section>
-
+        <div class="search-container">
+            <input
+                type="text"
+                id="searchInput"
+                class="form-control"
+                placeholder="Tapez pour rechercher..." />
+            <div id="searchResults" class="search-results"></div>
+        </div>
         <?= $content ?>
     </main>
     <footer>
@@ -116,8 +113,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./public/js/favorit.js"></script>
     <script src="./public/js/commenter.js"></script>
-    
-
+    <script src="./public/js/search.js"></script>
 </body>
 
 </html>

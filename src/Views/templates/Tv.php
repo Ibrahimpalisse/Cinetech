@@ -77,13 +77,42 @@ function getGenreNames($genreIds, $allGenres) {
 <div class="btn-toolbar mb-3 p-3" role="toolbar" aria-label="Toolbar with button groups">
 
     <div class="btn-group me-3" role="group" aria-label="Pagination">
-        <?php for ($i = 1; $i <= min($pagination['total_pages'], 6); $i++): ?>
+        <?php 
+        // Déterminer les pages à afficher
+        $startPage = max(1, $pagination['current_page'] - 2); // 2 pages en arrière
+        $endPage = min($pagination['total_pages'], $pagination['current_page'] + 2); // 2 pages en avant
+
+        // Afficher "..." avant si des pages sont cachées avant $startPage
+        if ($startPage > 1): ?>
+            <a href="?genre=<?= $selected_genre ?>&page=1" 
+               class="btn btn-outline-secondary me-2">1</a>
+            <?php if ($startPage > 2): ?>
+                <span class="btn btn-outline-secondary disabled">...</span>
+            <?php endif; ?>
+        <?php endif; ?>
+
+        <!-- Affichage des pages actuelles -->
+        <?php for ($i = $startPage; $i <= $endPage; $i++): ?>
             <a href="?genre=<?= $selected_genre ?>&page=<?= $i ?>" 
                class="btn btn-outline-secondary <?= $i == $pagination['current_page'] ? 'active' : '' ?> me-2">
                <?= $i ?>
             </a>
         <?php endfor; ?>
+
+        <!-- Afficher "..." après si des pages sont cachées après $endPage -->
+        <?php if ($endPage < $pagination['total_pages']): ?>
+            <?php if ($endPage < $pagination['total_pages'] - 1): ?>
+                <span class="btn btn-outline-secondary disabled">...</span>
+            <?php endif; ?>
+            <a href="?genre=<?= $selected_genre ?>&page=<?= $pagination['total_pages'] ?>" 
+               class="btn btn-outline-secondary me-2"><?= $pagination['total_pages'] ?></a>
+        <?php endif; ?>
     </div>
+
+</div>
+
+
+
 
     <div class="input-group ms-auto p-1">
         <form method="get" action="" class="d-flex">

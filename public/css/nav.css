@@ -28,5 +28,57 @@
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 /* Style pour la modale de succès */
+.search-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    background-color: black;
+}
+
+
+.result-image {
+    width: 92px;
+    height: 138px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.result-info {
+    flex-grow: 1;
+}
+
+.result-info h5 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.result-info p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
 
   

@@ -12,6 +12,7 @@ use App\Controllers\LogoutControleur;
 use App\Controllers\FavorisControleur;  
 use App\Controllers\affichFavorisControleur;
 use App\Controllers\commentaireControleur;
+use App\Controllers\SearchController;
 try {
     // Récupérer l'URL sans le chemin de base
     $url = $_SERVER['REQUEST_URI'];
@@ -64,10 +65,15 @@ try {
           $controller = new affichFavorisControleur();
           $controller->affichFavoris();
          break;  
+
        case 'commentaire':
           $controller = new commentaireControleur();
           $controller->ajouterCommentaire();
          break;
+
+      case 'search':
+          $controller = new SearchController();
+          $controller-> handleSearch();   
 
         default:
             http_response_code(404);
