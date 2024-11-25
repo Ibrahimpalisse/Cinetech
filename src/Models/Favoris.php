@@ -69,4 +69,22 @@ class Favoris
             return false;
         }
     }
+    public function getFavoris($userId) {
+        $query = "SELECT * FROM favorites WHERE user_id = :user_id ORDER BY added_at DESC";
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function deleteFavori($favoriteId)
+    {
+        $db = new \PDO('mysql:host=localhost;dbname=cinetech;charset=utf8', 'root', '');
+        $query = "DELETE FROM favorites WHERE id = :id";
+        $stmt = $db->prepare($query);
+
+        $stmt->bindParam(':id', $favoriteId, \PDO::PARAM_INT);
+
+        return $stmt->execute(); // Retourne true si la suppression réussit
+    }
+
 }

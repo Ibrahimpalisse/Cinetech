@@ -1,4 +1,5 @@
 <!-- Modal -->
+<!-- Modal -->
 <section class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -15,6 +16,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- Section principale -->
 <section class="container" style="background-image: url('https://image.tmdb.org/t/p/w1280<?= htmlspecialchars($details['backdrop_path'] ?? 'Non disponible') ?>');">
@@ -115,47 +117,86 @@
 <?php else: ?>
     <p>Aucune vidéo disponible pour ce film.</p>
 <?php endif; ?>
+<!-- Formulaire supplémentaire -->
+<div class="form-container">
+    <div class="form-group">
+        <label for="commentTextarea"><h6 class="actors-title">Ajouter un commentaire</h6></label>
+        <textarea class="form-control" id="commentTextarea" rows="3"></textarea>
+    </div>
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-primary mt-3" id="sendButton">Envoyer</button>
+    </div>
+    <p class="comments">
+        
+    </p>
+</div>
+<script>
+ 
+  document.addEventListener('DOMContentLoaded', function() {
+        const commentsContainer = document.querySelector('.comments');
+        const comments = <?= json_encode($comments ?? []) ?>;
 
-<!-- Styles -->
-<style>
-    .videos-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-    }
-    .video {
-        flex: 1 1 calc(33.333% - 20px);
-        max-width: calc(33.333% - 20px);
-        box-sizing: border-box;
-    }
-    .video iframe {
-        width: 100%;
-        height: auto;
-    }
-    .video p {
-        text-align: center;
-        font-size: 1rem;
-        margin-top: 10px;
-    }
-    .type-label {
-        font-size: 1.2rem;
-        color: #fff;
-        background-color: #ff9800;
-        padding: 5px 10px;
-        border-radius: 5px;
-        display: inline-block;
-        margin-bottom: 20px;
-    }
-    @media (max-width: 768px) {
-        .video {
-            flex: 1 1 calc(50% - 20px);
-            max-width: calc(50% - 20px);
+        if (comments.length > 0) {
+            comments.forEach(comment => {
+                const commentElement = document.createElement('div');
+                commentElement.innerHTML = `
+                    <p><strong class="nom_auteur">${comment.username} :</strong></p>
+                    <p>${comment.comment_text}</p>
+                  <small class="date">Posté le : ${new Date(comment.added_at).toLocaleString()}</small>
+
+                `;
+                commentsContainer.appendChild(commentElement);
+            });
+        } else {
+            commentsContainer.innerHTML = '<p>Aucun commentaire disponible pour ce média.</p>';
         }
+    });
+document.getElementById('sendButton').addEventListener('click', function() {
+    const commentText = document.getElementById('commentTextarea').value.trim();
+    const mediaId = <?= json_encode($details['id']) ?>; // Assurez-vous que $details['id'] est défini côté serveur
+
+    if (commentText === '') {
+        displayMessage('Le commentaire ne peut pas être vide.');
+        return;
     }
-    @media (max-width: 480px) {
-        .video {
-            flex: 1 1 100%;
-            max-width: 100%;
+
+    const data = {
+        media_id: mediaId,
+        comment_text: commentText
+    };
+
+    fetch('http://localhost/cinetech/commentaire', { // Remplacez '/votre-endpoint' par l'URL de votre contrôleur qui gère les commentaires
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Une erreur est survenue lors de l\'envoi du commentaire.');
         }
-    }
-</style>
+        return response.json();
+    })
+    .then(result => {
+        if (result.success) {
+         //   displayMessage('Votre commentaire a été ajouté avec succès.');
+            document.getElementById('commentTextarea').value = ''; // Réinitialise le champ de texte
+        } else {
+            displayMessage(result.message || 'Une erreur est survenue.');
+        }
+    })
+    .catch(error => {
+        console.error('Erreur:', error);
+        displayMessage('Une erreur est survenue lors de l\'envoi du commentaire.');
+    });
+});
+
+function displayMessage(message) {
+    const messageModal = new bootstrap.Modal(document.getElementById('messageModal'));
+    document.getElementById('messageModalBody').textContent = message;
+    messageModal.show();
+}
+
+
+</script>

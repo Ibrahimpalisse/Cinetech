@@ -10,7 +10,8 @@ use App\Controllers\RegisterController;
 use App\Controllers\LoginControleur;
 use App\Controllers\LogoutControleur;
 use App\Controllers\FavorisControleur;  
-
+use App\Controllers\affichFavorisControleur;
+use App\Controllers\commentaireControleur;
 try {
     // Récupérer l'URL sans le chemin de base
     $url = $_SERVER['REQUEST_URI'];
@@ -57,6 +58,15 @@ try {
        case 'favoris':
           $controller = new FavorisControleur();
           $controller->ajouterAuxFavoris();
+         break;
+
+       case 'affichFavoris':
+          $controller = new affichFavorisControleur();
+          $controller->affichFavoris();
+         break;  
+       case 'commentaire':
+          $controller = new commentaireControleur();
+          $controller->ajouterCommentaire();
          break;
 
         default:
