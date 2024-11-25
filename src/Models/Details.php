@@ -82,15 +82,17 @@ class Details
      */
     public function getCommentsByMediaIdAndUser($mediaId) {
         $sql = "
-                SELECT c.comment_text, u.username, c.added_at 
+            SELECT c.comment_text, u.username, c.added_at 
                 FROM comments c 
                 INNER JOIN users u ON c.user_id = u.id 
                 WHERE c.media_id = :media_id 
                 ORDER BY c.added_at DESC
-                ";
+        ";
+
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([
             ':media_id' => $mediaId,
+          
         ]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);

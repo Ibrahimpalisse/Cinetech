@@ -26,6 +26,7 @@ class Commenter
 
     public function addComment($userId, $mediaId, $commentText)
     {
+        date_default_timezone_set('Europe/Paris');
         $sql = "INSERT INTO comments (user_id, media_id, comment_text, added_at) 
                 VALUES (:user_id, :media_id, :comment_text, :added_at)";
 
@@ -42,6 +43,7 @@ class Commenter
             throw new \Exception("Erreur lors de l'insertion du commentaire : " . $e->getMessage());
         }
     }
+    
  
 
 }

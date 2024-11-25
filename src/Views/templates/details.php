@@ -132,25 +132,25 @@
 </div>
 <script>
  
-  document.addEventListener('DOMContentLoaded', function() {
-        const commentsContainer = document.querySelector('.comments');
-        const comments = <?= json_encode($comments ?? []) ?>;
+ document.addEventListener('DOMContentLoaded', function() {
+    const commentsContainer = document.querySelector('.comments');
+    const comments = <?= json_encode($comments ?? []) ?>;
 
-        if (comments.length > 0) {
-            comments.forEach(comment => {
-                const commentElement = document.createElement('div');
-                commentElement.innerHTML = `
-                    <p><strong class="nom_auteur">${comment.username} :</strong></p>
-                    <p>${comment.comment_text}</p>
-                  <small class="date">Posté le : ${new Date(comment.added_at).toLocaleString()}</small>
+    if (comments.length > 0) {
+        comments.forEach(comment => {
+            const commentElement = document.createElement('div');
+            commentElement.innerHTML = `
+                <p><strong class="nom_auteur">${comment.username} :</strong></p>
+                <p>${comment.comment_text}</p>
+                <small class="date">Posté le : ${new Date(comment.added_at).toLocaleString()}</small>
+            `;
+            commentsContainer.appendChild(commentElement);
+        });
+    } else {
+        commentsContainer.innerHTML = '<p>Aucun commentaire disponible pour ce média.</p>';
+    }
+});
 
-                `;
-                commentsContainer.appendChild(commentElement);
-            });
-        } else {
-            commentsContainer.innerHTML = '<p>Aucun commentaire disponible pour ce média.</p>';
-        }
-    });
 document.getElementById('sendButton').addEventListener('click', function() {
     const commentText = document.getElementById('commentTextarea').value.trim();
     const mediaId = <?= json_encode($details['id']) ?>; // Assurez-vous que $details['id'] est défini côté serveur
@@ -165,7 +165,7 @@ document.getElementById('sendButton').addEventListener('click', function() {
         comment_text: commentText
     };
 
-    fetch('http://localhost/cinetech/commentaire', { // Remplacez '/votre-endpoint' par l'URL de votre contrôleur qui gère les commentaires
+    fetch('http://localhost/cinetech/commentaire', { // Remplacez par l'URL de votre contrôleur qui gère les commentaires
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -180,8 +180,11 @@ document.getElementById('sendButton').addEventListener('click', function() {
     })
     .then(result => {
         if (result.success) {
-         //   displayMessage('Votre commentaire a été ajouté avec succès.');
             document.getElementById('commentTextarea').value = ''; // Réinitialise le champ de texte
+            // Recharge automatiquement la page après un court délai
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000); // Recharge la page après 1 seconde
         } else {
             displayMessage(result.message || 'Une erreur est survenue.');
         }
@@ -197,6 +200,7 @@ function displayMessage(message) {
     document.getElementById('messageModalBody').textContent = message;
     messageModal.show();
 }
+
 
 
 </script>
