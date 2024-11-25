@@ -54,10 +54,10 @@ try {
             $controller->logout();
             break;
             
-    //   case 'favoris':
-    //       $controller = new FavorisControleur();
-     //     $controller->favoris();
-     //      break;
+       case 'favoris':
+          $controller = new FavorisControleur();
+          $controller->ajouterAuxFavoris();
+         break;
 
         default:
             http_response_code(404);

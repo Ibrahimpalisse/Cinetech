@@ -34,11 +34,11 @@ class HomeController {
     }
     
     public function index() {
-        // Gérer l'ajout aux favoris
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favoris'])) {
-            $favoris = new FavorisControleur();
-            $favoris->favoris();
-        }
+      // Gérer l'ajout aux favoris
+      //  if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['favoris'])) {
+      //      $favoris = new FavorisControleur();
+      //      $favoris->favoris();
+      //  }
         
         // Charger les films et séries populaires
         $movies = $this->getPopularMovies();

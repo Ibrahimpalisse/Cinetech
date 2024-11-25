@@ -1,40 +1,45 @@
 <?php
 namespace App\Controllers;
+
 use App\Models\Favoris;
-use App\Views\View;
 
-class FavorisControleur {
+class FavorisControleur
+{
+    public function ajouterAuxFavoris()
+    {
+        try {
+            header('Content-Type: application/json');
 
-    public function favoris() {
-        // Initialisation de la classe Favoris
-        $favoris = new Favoris();
+            $mediaId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+            $mediaType = filter_input(INPUT_GET, 'type', FILTER_DEFAULT);
+            $mediaType = htmlspecialchars($mediaType, ENT_QUOTES, 'UTF-8');
 
-        // Vérification de l'utilisateur connecté
-        $userId = $favoris->getUserId($_SESSION);
-
-        if (!is_numeric($userId)) {
-            // Si l'utilisateur n'est pas connecté, afficher un message et retourner
-            setcookie('favoris_message', "Vous n'êtes pas connecté.", time() + 3600, '/');
-            return;
-        }
-
-        // Récupération des données du formulaire
-        $mediaId = $_POST['id'] ?? null;
-        $mediaType = $_POST['type'] ?? null;
-
-        if ($mediaId && $mediaType) {
-            // Vérifier si le média est déjà dans les favoris
-            $checkMessage = $favoris->checkMediaInFavoris($userId, $mediaId, $mediaType);
-
-            if ($checkMessage === "Le média n'est pas dans les favoris.") {
-                // Ajouter le média aux favoris
-                $addMessage = $favoris->addMediaToFavoris($userId, $mediaId, $mediaType);
-                setcookie('favoris_message', $addMessage, time() + 3600, '/');
-            } else {
-                setcookie('favoris_message', $checkMessage, time() + 3600, '/');
+            if (!$mediaId || !$mediaType) {
+                echo json_encode(['status' => 'error', 'message' => "Données de média invalides."]);
+                return;
             }
-        } else {
-            setcookie('favoris_message', "Données de média invalides.", time() + 3600, '/');
+
+            $favoris = new Favoris();
+            session_start();
+
+            $userId = $favoris->getUserId($_SESSION);
+
+            if (!is_numeric($userId)) {
+                echo json_encode(['status' => 'error', 'message' => "Vous n'êtes pas connecté."]);
+                return;
+            }
+
+            if ($favoris->isMediaInFavoris($userId, $mediaId, $mediaType)) {
+                echo json_encode(['status' => 'info', 'message' => "Le média est déjà dans les favoris."]);
+            } else {
+                if ($favoris->addMediaToFavoris($userId, $mediaId, $mediaType)) {
+                    echo json_encode(['status' => 'success', 'message' => "Le média a été ajouté aux favoris."]);
+                } else {
+                    echo json_encode(['status' => 'error', 'message' => "Erreur lors de l'ajout du média aux favoris."]);
+                }
+            }
+        } catch (\Exception $e) {
+            echo json_encode(['status' => 'error', 'message' => "Erreur interne du serveur : " . $e->getMessage()]);
         }
     }
 }

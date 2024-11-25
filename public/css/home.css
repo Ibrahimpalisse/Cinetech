@@ -149,7 +149,9 @@ body {
 .close-button:hover {
   color: #721c24;
 }
-
+.modal-success .modal-content {
+  color: #000000; /* Texte en noir */
+}
 /* ======== RESPONSIVE DESIGN ======== */
 @media (max-width: 1200px) {
   .card_movie {

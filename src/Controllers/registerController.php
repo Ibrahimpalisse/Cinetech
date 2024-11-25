@@ -55,7 +55,7 @@ class registerController {
 
                 if ($result === true) {
                     unset($_SESSION['errors'], $_SESSION['username'], $_SESSION['email']);
-                    header('Location:<?= URL ?>login');
+                    header('Location: http://localhost/cinetech/login');
                     exit;
                 } else {
                     $errors['general'] = $result;

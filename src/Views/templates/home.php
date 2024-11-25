@@ -1,15 +1,4 @@
-<div class="response-message">
-    <?php if (isset($_COOKIE['favoris_message'])): ?>
-        <div class="alert alert-success" id="message-container">
-            <?= htmlspecialchars($_COOKIE['favoris_message']) ?>
-            <button type="button" class="close-button">X</button>
-        </div>
-        <?php
-        // Supprimer le cookie après affichage
-        setcookie('favoris_message', '', time() - 3600, '/');
-        ?>
-    <?php endif; ?>
-</div>
+
 <?php if (isset($movies) && is_array($movies)): ?>
 <h1 class="title_movie">Films Populaires</h1>
 <div class="carousel">
@@ -24,11 +13,9 @@
                         <p class="note">Genres : <?= htmlspecialchars(implode(', ', $movie['genres'])) ?></p>
                     </div>
                 </a>
-                <form action="" method="post">
-                    <input type="hidden" name="id" value="<?= htmlspecialchars($movie['id']) ?>">
-                    <input type="hidden" name="type" value="<?= htmlspecialchars($movie['type']) ?>">
-                    <button name="favoris" type="submit" class="btn btn-warning">Ajouter au favoris</button>
-                </form>
+                <button type="button" class="btn btn-warning add-to-favorites" data-id="<?= htmlspecialchars($movie['id']) ?>" data-type="<?= htmlspecialchars($movie['type']) ?>">
+                       Ajouter au favoris
+                 </button>
             </div>
         <?php endforeach; ?>
     </div>
@@ -37,7 +24,7 @@
 </div>
 <?php endif; ?>
 
-<!-- Séries Populaires -->
+
 <?php if (isset($tvs) && is_array($tvs)): ?>
     <h1 class="title_movie">Séries Populaires</h1>
     <div class="carousel">
@@ -52,11 +39,9 @@
                             <p class="note">Genres : <?= htmlspecialchars(implode(', ', $serie['genres'])) ?></p>
                         </div>
                     </a>
-                    <form action="" method="POST">
-                        <input type="hidden" name="id" value="<?= (int)$serie['id'] ?>">
-                        <input type="hidden" name="type" value="<?= htmlspecialchars($serie['type']) ?>">
-                        <button name="favoris" type="submit" class="btn btn-warning">Ajouter au favoris</button>
-                    </form>
+                    <button type="button" class="btn btn-warning add-to-favorites" data-id="<?= htmlspecialchars($serie['id']) ?>" data-type="<?= htmlspecialchars($serie['type']) ?>">
+                            Ajouter au favoris
+                    </button>
 
                 </div>
             <?php endforeach; ?>

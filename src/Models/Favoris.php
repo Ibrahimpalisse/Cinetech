@@ -10,7 +10,6 @@ class Favoris
 
     public function __construct()
     {
-        // Informations de connexion à la base de données
         $host = 'localhost';
         $dbname = 'cinetech';
         $username = 'root';
@@ -25,31 +24,14 @@ class Favoris
         }
     }
 
-    /**
-     * Récupère l'ID de l'utilisateur à partir de la session.
-     *
-     * @param array|null $userSession La session utilisateur.
-     * @return int|string L'ID de l'utilisateur ou un message d'erreur.
-     */
     public function getUserId(?array $userSession)
     {
-        if (isset($userSession['user_id'])) {
-            return $userSession['user_id'];
-        }
-        return "Vous n'êtes pas connecté.";
+        return $userSession['user_id'] ?? null;
     }
 
-    /**
-     * Vérifie si un média est déjà dans les favoris pour un utilisateur.
-     *
-     * @param int $userId L'ID de l'utilisateur.
-     * @param int $mediaId L'ID du média.
-     * @param string $mediaType Le type du média (film ou série).
-     * @return string Un message indiquant si le média est dans les favoris ou non.
-     */
-    public function checkMediaInFavoris(int $userId, int $mediaId, string $mediaType): string
+    public function isMediaInFavoris(int $userId, int $mediaId, string $mediaType): bool
     {
-        $query = "SELECT * FROM favorites WHERE user_id = :user_id AND media_id = :media_id AND media_type = :media_type";
+        $query = "SELECT COUNT(*) FROM favorites WHERE user_id = :user_id AND media_id = :media_id AND media_type = :media_type";
         $stmt = $this->pdo->prepare($query);
         $stmt->execute([
             'user_id' => $userId,
@@ -57,23 +39,15 @@ class Favoris
             'media_type' => $mediaType
         ]);
 
-        if ($stmt->rowCount() > 0) {
-            return "Le média est déjà dans les favoris.";
-        }
-        return "Le média n'est pas dans les favoris.";
+        $result = (int) $stmt->fetchColumn();
+        error_log("isMediaInFavoris - Résultat: $result");
+
+        return $result > 0;
     }
 
-    /**
-     * Ajoute un média aux favoris.
-     *
-     * @param int $userId L'ID de l'utilisateur.
-     * @param int $mediaId L'ID du média.
-     * @param string $mediaType Le type du média (film ou série).
-     * @return string Un message d'état indiquant si l'ajout a réussi ou échoué.
-     */
-    public function addMediaToFavoris(int $userId, int $mediaId, string $mediaType): string
+    public function addMediaToFavoris(int $userId, int $mediaId, string $mediaType): bool
     {
-        $query = "INSERT INTO 	favorites (user_id, media_id, media_type, added_at) VALUES (:user_id, :media_id, :media_type, NOW())";
+        $query = "INSERT INTO favorites (user_id, media_id, media_type, added_at) VALUES (:user_id, :media_id, :media_type, NOW())";
         $stmt = $this->pdo->prepare($query);
 
         try {
@@ -82,9 +56,17 @@ class Favoris
                 'media_id' => $mediaId,
                 'media_type' => $mediaType
             ]);
-            return "Le média a été ajouté aux favoris.";
+
+            if ($stmt->rowCount() > 0) {
+                error_log("addMediaToFavoris - Succès");
+                return true;
+            } else {
+                error_log("addMediaToFavoris - Aucune ligne insérée");
+                return false;
+            }
         } catch (PDOException $e) {
-            return "Erreur lors de l'ajout du média aux favoris : " . $e->getMessage();
+            error_log("Erreur lors de l'ajout aux favoris : " . $e->getMessage());
+            return false;
         }
     }
 }
