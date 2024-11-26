@@ -169,6 +169,7 @@ a:hover {
     Color: rgb(137 140 143 / 75%);
 }
 
+
 @media (max-width: 768px) {
     .video {
         flex: 1 1 calc(50% - 20px);
@@ -179,5 +180,9 @@ a:hover {
     .video {
         flex: 1 1 100%;
         max-width: 100%;
+    }
+    .movie-stats{
+        display: flex;
+        flex-direction: column;
     }
 }

@@ -16,69 +16,61 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand text-white" href="#">TV</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active text-white" aria-current="page" href="<?= URL ?>">
-                            Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= URL ?>tv">
-                            Series
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="<?= URL ?>movies">
-                            Films
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white me-auto" href="<?= URL ?>affichFavoris">
-                            Favoris
-
-                        </a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill: rgba(255, 99, 71, 1);" class="bi bi-person-fill" viewBox="0 0 16 16">
-                                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                            </svg>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
-                            <?php if (isset($_SESSION['user_id'])): ?>
-                                <!-- L'utilisateur est connecté -->
-                                <li>
-                                    <a class="dropdown-item" href="<?= URL ?>profile">Profil</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="<?= URL ?>logout">Se déconnecter</a>
-                                </li>
-                            <?php else: ?>
-                                <!-- L'utilisateur n'est pas connecté -->
-                                <li>
-                                    <a class="dropdown-item" href="<?= URL ?>login">Se connecter</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="<?= URL ?>register">S'inscrire</a>
-                                </li>
-                            <?php endif; ?>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <h1 class="bienvenue">Bienvenue <?= (isset($_SESSION['username'])) ? $_SESSION['username'] : 'Inconnu' ?> </h1>
-                    </li>
-
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-white" href="<?= URL ?>">TV</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active text-white" aria-current="page" href="<?= URL ?>">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="<?= URL ?>tv">Series</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="<?= URL ?>movies">Films</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="<?= URL ?>affichFavoris">Favoris</a>
+                </li>
+            </ul>
+            <!-- Section utilisateur alignée à droite -->
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-white" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="fill: rgba(255, 99, 71, 1);" class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"></path>
+                        </svg>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="userDropdown">
+                        <?php if (isset($_SESSION['user_id'])): ?>
+                            <li>
+                                <a class="dropdown-item" href="<?= URL ?>profile">Profil</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= URL ?>logout">Se déconnecter</a>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <a class="dropdown-item" href="<?= URL ?>login">Se connecter</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?= URL ?>register">S'inscrire</a>
+                            </li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <span class="nav-link text-white">Bienvenue <?= (isset($_SESSION['username'])) ? $_SESSION['username'] : 'Inconnu' ?></span>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
     <main>
         <section class="modal fade modal-success" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
             <div class="modal-dialog">
