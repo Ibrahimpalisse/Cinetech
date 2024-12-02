@@ -33,7 +33,7 @@ class Search {
             $response = curl_exec($curl);
             $http_code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             curl_close($curl);
-
+           
             // Vérification des erreurs ou de la réponse
             if ($response === false || $http_code !== 200) {
                 throw new \Exception("Erreur lors de l'appel à l'API. Code HTTP : " . $http_code);
